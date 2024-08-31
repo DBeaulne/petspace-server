@@ -16,6 +16,10 @@
 	},
 	"author": "Daniel Beaulne",
 	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/DBeaulne/petspace-server/issues"
+	},
+	"homepage": "https://github.com/DBeaulne/petspace-server#readme",
 	"dependencies": {
 		"cors": "^2.8.5",
 		"dotenv": "^16.4.5",
