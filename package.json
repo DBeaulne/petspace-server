@@ -2,7 +2,7 @@
 	"name": "petspace-server",
 	"version": "1.0.0",
 	"description": "Petspace node.js server",
-	"main": "index.js",
+	"main": "server.js",
 	"scripts": {
 		"start": "nodemon server.js",
 		"migrate": "knex migrate:latest",

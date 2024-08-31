@@ -1,4 +1,4 @@
-/* knexfile file */
+/* knex file */
 require("dotenv").config();
 
 module.exports = {
