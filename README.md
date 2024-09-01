@@ -16,6 +16,9 @@
 
 - create develop branch
 - created knexfile.js
+
+### Initial Migrations
+
 - created initial migrations for:
   - account table
   - user table
@@ -32,3 +35,9 @@
 - created sitter_bridge table
 - created user_pet bridge table
 - created pet table
+- debugged migrations
+- complete migrations file debugging
+
+### Initial Seed files
+
+-

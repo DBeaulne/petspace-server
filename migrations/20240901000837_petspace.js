@@ -4,7 +4,7 @@
  */
 exports.up = function(knex) {
   return knex.schema.createTable('account', (table) => {
-    table.increments('id').primary();
+    table.uuid('id').primary().defaultTo(knex.raw('(UUID())'));
     table.string('email').notNullable();
     table.string('stripe_customer_id').notNullable();
     table.string('stripe_subscription_id').notNullable();
@@ -16,7 +16,7 @@ exports.up = function(knex) {
     table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
   })
   .createTable('user', (table) => {
-    table.increments('id').primary();
+    table.uuid('id').primary().defaultTo(knex.raw('(UUID())'));
     table.string('first_name').notNullable();
     table.string('last_name').notNullable();
     table.string('email').notNullable();
@@ -24,17 +24,16 @@ exports.up = function(knex) {
     table.string('city').notNullable();
     table.string('province').notNullable();
     table.string('postal_code').notNullable();
-    table.string('account_id').notNullable();
+    table.uuid('account_id').notNullable();
     table
-      .foreign('account_id')    
+      .foreign('account_id')
       .references('id')
-      .inTable('user')
+      .inTable('account')
       .onUpdate('CASCADE')
       .onDelete('CASCADE');
-  })
-  /* 
+    })
   .createTable('sitter', (table) => {
-    table.increments('id').primary();
+    table.uuid('id').primary().defaultTo(knex.raw('(UUID())'));
     table.string('first_name').notNullable();
     table.string('last_name').notNullable();
     table.string('email').notNullable();
@@ -42,13 +41,16 @@ exports.up = function(knex) {
     table.string('city').notNullable();
     table.string('province').notNullable();
     table.string('postal_code').notNullable();
-    table.string('account_id')
-      .references('account.id')
+    table.uuid('account_id').notNullable();
+    table
+      .foreign('account_id')
+      .references('id')
+      .inTable('account')
       .onUpdate('CASCADE')
       .onDelete('CASCADE');
-  })
+    })
   .createTable('pet', (table) => {
-    table.increments('id').primary();
+    table.uuid('id').primary().defaultTo(knex.raw('(UUID())'));
     table.string('name').notNullable();
     table.string('pet_type').notNullable();
     table.string('size').notNullable();
@@ -59,27 +61,39 @@ exports.up = function(knex) {
     table.string('activities').notNullable();
   })
   .createTable('sitter_bridge', (table) => {
-    table.increments('id').primary();
-    table.string('sitter_id')
-      .references('sitter.account_id')
+    table.integer('id').unsigned().primary();
+    table.uuid('sitter_id').notNullable();
+    table.uuid('pet_id').notNullable();
+    table
+      .foreign('sitter_id')
+      .references('account_id')
+      .inTable('sitter')
       .onUpdate('CASCADE')
       .onDelete('CASCADE');
-    table.string('pet_id')
-      .references('pet.id')
+    table
+      .foreign('pet_id')
+      .references('id')
+      .inTable('pet')
       .onUpdate('CASCADE')
       .onDelete('CASCADE');
   })
-  .createTable('users_pet', (table) => {
-    table.increments('id').primary();
-    table.string('user_id')
-      .references('user.account_id')
+  .createTable('user_pet', (table) => {
+    table.integer('id').unsigned().primary();
+    table.uuid('user_id').notNullable();
+    table.uuid('pet_id').notNullable();
+    table
+      .foreign('user_id')
+      .references('account_id')
+      .inTable('user')
       .onUpdate('CASCADE')
       .onDelete('CASCADE');
-    table.string('pet_id')
-      .references('pet.id')
+    table
+      .foreign('pet_id')
+      .references('id')
+      .inTable('pet')
       .onUpdate('CASCADE')
       .onDelete('CASCADE');
-  }) */
+  });
 };
 
 /**
@@ -88,10 +102,10 @@ exports.up = function(knex) {
  */
 exports.down = function(knex) {
   return knex.schema
-    .dropTable('users_pet')
+    .dropTable('user_pet')
     .dropTable('sitter_bridge')
     .dropTable('pet')
     .dropTable('sitter')
-    .dropTable('user')
-    .dropTable('account');
+    .dropTableIfExists('user')
+    .dropTableIfExists('account');
 };
