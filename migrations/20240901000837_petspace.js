@@ -54,10 +54,10 @@ exports.up = function(knex) {
     table.string('name').notNullable();
     table.string('pet_type').notNullable();
     table.string('size').notNullable();
-    table.string('temperment').notNullable();
+    table.string('temperament').notNullable();
     table.integer('age').notNullable();
-    table.string('foot_serving').notNullable();
-    table.string('foot_type').notNullable();
+    table.string('food_serving').notNullable();
+    table.string('food_type').notNullable();
     table.string('activities').notNullable();
   })
   .createTable('sitter_bridge', (table) => {
