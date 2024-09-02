@@ -1,4 +1,5 @@
 /* PetSpace database users seed file */
+
 /**
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> } 
@@ -14,10 +15,12 @@ exports.seed = async function(knex) {
       first_name: 'John',
       last_name: 'Doe',
       email: 'john.doe@example.com',
-      address: '123 Scugog Street',
-      city: 'Uxbridge',
+      address: '57 Nathan Ave',
+      city: 'Whitby',
       province: 'ON',
-      postal_code: 'L9P 1J3',
+      postal_code: 'L1M 0K2',
+      latitude: 43.96136088294837,  // Latitude for Uxbridge, ON
+      longitude: -78.95434641985815,  // Longitude for Uxbridge, ON
       account_id: await knex('account').where('email', 'john.doe@example.com').select('id').first().then(row => row.id)
     },
     {
@@ -25,12 +28,13 @@ exports.seed = async function(knex) {
       first_name: 'Jane',
       last_name: 'Smith',
       email: 'jane.smith@example.com',
-      address: '456 Brock Street',
+      address: '41 Pilkington Crescent',
       city: 'Whitby',
       province: 'ON',
-      postal_code: 'L1N 4J8',
+      postal_code: 'L1N 6E8',
+      latitude: 43.89210742117633,  // Latitude for Whitby, ON
+      longitude: -78.94130625712823,  // Longitude for Whitby, ON
       account_id: await knex('account').where('email', 'jane.smith@example.com').select('id').first().then(row => row.id)
     }
   ]);
 };
-
