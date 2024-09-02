@@ -14,10 +14,10 @@ exports.seed = async function(knex) {
       first_name: 'John',
       last_name: 'Doe',
       email: 'john.doe@example.com',
-      address: '123 Maple Street',
-      city: 'Toronto',
+      address: '123 Scugog Street',
+      city: 'Uxbridge',
       province: 'ON',
-      postal_code: 'M4B 1B3',
+      postal_code: 'L9P 1J3',
       account_id: await knex('account').where('email', 'john.doe@example.com').select('id').first().then(row => row.id)
     },
     {
@@ -25,11 +25,12 @@ exports.seed = async function(knex) {
       first_name: 'Jane',
       last_name: 'Smith',
       email: 'jane.smith@example.com',
-      address: '456 Oak Avenue',
-      city: 'Vancouver',
-      province: 'BC',
-      postal_code: 'V5K 0A1',
+      address: '456 Brock Street',
+      city: 'Whitby',
+      province: 'ON',
+      postal_code: 'L1N 4J8',
       account_id: await knex('account').where('email', 'jane.smith@example.com').select('id').first().then(row => row.id)
     }
   ]);
 };
+
