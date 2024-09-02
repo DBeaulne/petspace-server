@@ -40,4 +40,4 @@
 
 ### Initial Seed files
 
--
+- generate seed files with knex make:seed 01_acocunts
