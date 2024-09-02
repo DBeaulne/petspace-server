@@ -25,8 +25,8 @@ exports.up = function(knex) {
       table.string('city').notNullable();
       table.string('province').notNullable();
       table.string('postal_code').notNullable();
-      table.decimal('latitude', 10, 8).notNullable();  // Added latitude column
-      table.decimal('longitude', 11, 8).notNullable();  // Added longitude column
+      table.decimal('latitude', 10, 8).notNullable();
+      table.decimal('longitude', 11, 8).notNullable();
       table.uuid('account_id').notNullable();
       table
         .foreign('account_id')
@@ -44,8 +44,10 @@ exports.up = function(knex) {
       table.string('city').notNullable();
       table.string('province').notNullable();
       table.string('postal_code').notNullable();
-      table.decimal('latitude', 10, 8).notNullable();  // Added latitude column
-      table.decimal('longitude', 11, 8).notNullable();  // Added longitude column
+      table.decimal('latitude', 10, 8).notNullable();
+      table.decimal('longitude', 11, 8).notNullable();
+      table.boolean('availability').notNullable();  // Added availability column
+      table.string('pet_care_type').notNullable();  // Added pet_care_type column
       table.uuid('account_id').notNullable();
       table
         .foreign('account_id')
