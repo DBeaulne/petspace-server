@@ -40,4 +40,5 @@
 
 ### Initial Seed files
 
-- generate seed files with knex make:seed 01_acocunts
+- generate seed files
+- edited seed files to locate users and sitters in Durham Region of Ontario
