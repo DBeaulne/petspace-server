@@ -42,3 +42,7 @@
 
 - generate seed files
 - edited seed files to locate users and sitters in Durham Region of Ontario
+
+### Routes
+
+### Controllers

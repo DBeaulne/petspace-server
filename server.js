@@ -19,6 +19,10 @@ app.use(cors());
 // app.use("/user", userRoutes);
 // app.use("/sitters", sitterRoutes);
 
+const mapRoute = require("./routes/map-route");
+
+// app.use("/map", mapRoute);
+
 app.listen(PORT, () => {
   console.log('fetching gerbils...');
   console.log('spooling up hamsters....');
