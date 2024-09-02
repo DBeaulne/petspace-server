@@ -1,4 +1,3 @@
-/* PetSpace database account seed file */
 /**
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> } 
@@ -28,6 +27,26 @@ exports.seed = async function(knex) {
       payment_preference: 'paypal',
       passwordHash: 'hashedpassword2',
       passwordSalt: 'salt2'
+    },
+    {
+      id: knex.raw('(UUID())'),
+      email: 'alice.johnson@example.com',
+      stripe_customer_id: 'stripe_cust_03',
+      stripe_subscription_id: 'stripe_sub_03',
+      paypal_customer_id: 'paypal_cust_03',
+      payment_preference: 'stripe',
+      passwordHash: 'hashedpassword3',
+      passwordSalt: 'salt3'
+    },
+    {
+      id: knex.raw('(UUID())'),
+      email: 'bob.williams@example.com',
+      stripe_customer_id: 'stripe_cust_04',
+      stripe_subscription_id: 'stripe_sub_04',
+      paypal_customer_id: 'paypal_cust_04',
+      payment_preference: 'paypal',
+      passwordHash: 'hashedpassword4',
+      passwordSalt: 'salt4'
     }
   ]);
 };
