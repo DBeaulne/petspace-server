@@ -4,13 +4,13 @@
  */
 exports.up = function(knex) {
   return knex.schema
-    .createTable('account', (table) => {
+    .createTable('accounts', (table) => {
       table.uuid('id').primary().defaultTo(knex.raw('(UUID())'));
       table.string('email').notNullable();
-      table.string('stripe_customer_id').notNullable();
-      table.string('stripe_subscription_id').notNullable();
-      table.string('paypal_customer_id').notNullable();
-      table.string('payment_preference').notNullable();
+      table.string('stripe_customer_id').nullable();
+      table.string('stripe_subscription_id').nullable();
+      table.string('paypal_customer_id').nullable();
+      table.string('payment_preference').nullable();
       table.string('passwordHash').notNullable();
       table.string('passwordSalt').notNullable();
       table.timestamp('date_created').defaultTo(knex.fn.now());
@@ -25,15 +25,15 @@ exports.up = function(knex) {
       table.string('city').notNullable();
       table.string('province').notNullable();
       table.string('postal_code').notNullable();
-      table.decimal('latitude', 10, 8).notNullable();
-      table.decimal('longitude', 11, 8).notNullable();
+      table.decimal('latitude', 10, 8).nullable();
+      table.decimal('longitude', 11, 8).nullable();
       table.timestamp('date_created').defaultTo(knex.fn.now());  // Added date_created
       table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));  // Added updated_at
       table.uuid('account_id').notNullable();
       table
         .foreign('account_id')
         .references('id')
-        .inTable('account')
+        .inTable('accounts')
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
     })
@@ -46,8 +46,8 @@ exports.up = function(knex) {
       table.string('city').notNullable();
       table.string('province').notNullable();
       table.string('postal_code').notNullable();
-      table.decimal('latitude', 10, 8).notNullable();
-      table.decimal('longitude', 11, 8).notNullable();
+      table.decimal('latitude', 10, 8).nullable();
+      table.decimal('longitude', 11, 8).nullable();
       table.boolean('availability').notNullable();
       table.timestamp('date_created').defaultTo(knex.fn.now());  // Added date_created
       table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));  // Added updated_at
@@ -55,7 +55,7 @@ exports.up = function(knex) {
       table
         .foreign('account_id')
         .references('id')
-        .inTable('account')
+        .inTable('accounts')
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
     })
@@ -140,5 +140,5 @@ exports.down = function(knex) {
     .dropTable('pet_types')
     .dropTable('sitters')
     .dropTableIfExists('users')
-    .dropTableIfExists('account');
+    .dropTableIfExists('accounts');
 };

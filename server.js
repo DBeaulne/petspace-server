@@ -14,9 +14,11 @@ app.use(express.json());
 app.use(cors());
 
 /* routes: */
+const accountRoutes = require("./routes/accounts-route");
 const userRoutes = require("./routes/user-routes");
 const sitterRoutes = require("./routes/sitter-routes");
 const petRoutes = require("./routes/pet-routes");
+app.use("/accounts", accountRoutes);
 app.use("/users", userRoutes);
 app.use("/sitters", sitterRoutes);
 app.use("/pets", petRoutes);

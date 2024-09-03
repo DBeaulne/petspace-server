@@ -21,7 +21,7 @@ exports.seed = async function(knex) {
       postal_code: 'L1M 0K2',
       latitude: 43.96136088294837,  // Latitude for Uxbridge, ON
       longitude: -78.95434641985815,  // Longitude for Uxbridge, ON
-      account_id: await knex('account').where('email', 'john.doe@example.com').select('id').first().then(row => row.id)
+      account_id: await knex('accounts').where('email', 'john.doe@example.com').select('id').first().then(row => row.id)
     },
     {
       id: knex.raw('(UUID())'),
@@ -34,7 +34,7 @@ exports.seed = async function(knex) {
       postal_code: 'L1N 6E8',
       latitude: 43.89210742117633,  // Latitude for Whitby, ON
       longitude: -78.94130625712823,  // Longitude for Whitby, ON
-      account_id: await knex('account').where('email', 'jane.smith@example.com').select('id').first().then(row => row.id)
+      account_id: await knex('accounts').where('email', 'jane.smith@example.com').select('id').first().then(row => row.id)
     }
   ]);
 };

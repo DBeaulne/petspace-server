@@ -12,4 +12,8 @@ const sitters = async (req, res) => {
   }
 };
 
-module.exports = { sitters }
+const addSitter = async (req,res) => {
+
+};
+
+module.exports = { sitters, addSitter }

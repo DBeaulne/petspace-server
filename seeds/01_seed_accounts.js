@@ -4,10 +4,10 @@
  */
 exports.seed = async function(knex) {
   // Deletes ALL existing entries
-  await knex('account').del();
+  await knex('accounts').del();
   
   // Inserts seed entries
-  await knex('account').insert([
+  await knex('accounts').insert([
     {
       id: knex.raw('(UUID())'),
       email: 'john.doe@example.com',

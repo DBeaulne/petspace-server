@@ -12,4 +12,8 @@ const pets = async (req, res) => {
   }
 };
 
-module.exports = { pets }
+const addPet = async (req,res) => {
+
+};
+
+module.exports = { pets, addPet }

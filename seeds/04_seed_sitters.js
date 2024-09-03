@@ -23,7 +23,7 @@ exports.seed = async function(knex) {
       availability: true,
       date_created: knex.fn.now(),
       updated_at: knex.fn.now(),
-      account_id: await knex('account').where('email', 'alice.johnson@example.com').select('id').first().then(row => row.id)
+      account_id: await knex('accounts').where('email', 'alice.johnson@example.com').select('id').first().then(row => row.id)
     },
     {
       id: knex.raw('(UUID())'),
@@ -39,7 +39,7 @@ exports.seed = async function(knex) {
       availability: false,
       date_created: knex.fn.now(),
       updated_at: knex.fn.now(),
-      account_id: await knex('account').where('email', 'bob.williams@example.com').select('id').first().then(row => row.id)
+      account_id: await knex('accounts').where('email', 'bob.williams@example.com').select('id').first().then(row => row.id)
     }
   ]);
 };
