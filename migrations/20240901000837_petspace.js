@@ -16,7 +16,7 @@ exports.up = function(knex) {
       table.timestamp('date_created').defaultTo(knex.fn.now());
       table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
     })
-    .createTable('user', (table) => {
+    .createTable('users', (table) => {
       table.uuid('id').primary().defaultTo(knex.raw('(UUID())'));
       table.string('first_name').notNullable();
       table.string('last_name').notNullable();
@@ -37,7 +37,7 @@ exports.up = function(knex) {
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
     })
-    .createTable('sitter', (table) => {
+    .createTable('sitters', (table) => {
       table.uuid('id').primary().defaultTo(knex.raw('(UUID())'));
       table.string('first_name').notNullable();
       table.string('last_name').notNullable();
@@ -69,7 +69,7 @@ exports.up = function(knex) {
       table
         .foreign('sitter_id')
         .references('id')
-        .inTable('sitter')
+        .inTable('sitters')
         .onDelete('CASCADE');
       table
         .foreign('pet_type_id')
@@ -98,7 +98,7 @@ exports.up = function(knex) {
       table
         .foreign('sitter_id')
         .references('account_id')
-        .inTable('sitter')
+        .inTable('sitters')
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
       table
@@ -115,7 +115,7 @@ exports.up = function(knex) {
       table
         .foreign('user_id')
         .references('account_id')
-        .inTable('user')
+        .inTable('users')
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
       table
@@ -138,7 +138,7 @@ exports.down = function(knex) {
     .dropTable('pet')
     .dropTable('sitter_pet_types')
     .dropTable('pet_types')
-    .dropTable('sitter')
-    .dropTableIfExists('user')
+    .dropTable('sitters')
+    .dropTableIfExists('users')
     .dropTableIfExists('account');
 };

@@ -5,10 +5,10 @@
  */
 exports.seed = async function(knex) {
   // Deletes ALL existing entries
-  await knex('sitter').del();
+  await knex('sitters').del();
   
   // Inserts seed entries
-  await knex('sitter').insert([
+  await knex('sitters').insert([
     {
       id: knex.raw('(UUID())'),
       first_name: 'Alice',

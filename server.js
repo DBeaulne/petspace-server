@@ -13,14 +13,16 @@ app.use(express.json());
 // use cors
 app.use(cors());
 
-// routes:
-// const userRoutes = require("./routes/user-routes");
-// const sitterRoutes = require("./routes/sitter-routes");
-// app.use("/user", userRoutes);
-// app.use("/sitters", sitterRoutes);
+/* routes: */
+const userRoutes = require("./routes/user-routes");
+const sitterRoutes = require("./routes/sitter-routes");
+const petRoutes = require("./routes/pet-routes");
+app.use("/users", userRoutes);
+app.use("/sitters", sitterRoutes);
+app.use("/pets", petRoutes);
 
-const mapRoute = require("./routes/map-route");
-
+// Route for Google Maps API, not sure if I need this yet
+// const mapRoute = require("./routes/map-route");
 // app.use("/map", mapRoute);
 
 app.listen(PORT, () => {
