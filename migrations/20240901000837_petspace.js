@@ -27,6 +27,8 @@ exports.up = function(knex) {
       table.string('postal_code').notNullable();
       table.decimal('latitude', 10, 8).notNullable();
       table.decimal('longitude', 11, 8).notNullable();
+      table.timestamp('date_created').defaultTo(knex.fn.now());  // Added date_created
+      table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));  // Added updated_at
       table.uuid('account_id').notNullable();
       table
         .foreign('account_id')
@@ -46,8 +48,9 @@ exports.up = function(knex) {
       table.string('postal_code').notNullable();
       table.decimal('latitude', 10, 8).notNullable();
       table.decimal('longitude', 11, 8).notNullable();
-      table.boolean('availability').notNullable();  // Added availability column
-      table.string('pet_care_type').notNullable();  // Added pet_care_type column
+      table.boolean('availability').notNullable();
+      table.timestamp('date_created').defaultTo(knex.fn.now());  // Added date_created
+      table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));  // Added updated_at
       table.uuid('account_id').notNullable();
       table
         .foreign('account_id')
@@ -55,6 +58,25 @@ exports.up = function(knex) {
         .inTable('account')
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
+    })
+    .createTable('pet_types', (table) => {
+      table.increments('id').primary();
+      table.string('name').notNullable().unique();
+    })
+    .createTable('sitter_pet_types', (table) => {
+      table.uuid('sitter_id').notNullable();
+      table.integer('pet_type_id').unsigned().notNullable();
+      table
+        .foreign('sitter_id')
+        .references('id')
+        .inTable('sitter')
+        .onDelete('CASCADE');
+      table
+        .foreign('pet_type_id')
+        .references('id')
+        .inTable('pet_types')
+        .onDelete('CASCADE');
+      table.primary(['sitter_id', 'pet_type_id']);
     })
     .createTable('pet', (table) => {
       table.uuid('id').primary().defaultTo(knex.raw('(UUID())'));
@@ -66,6 +88,8 @@ exports.up = function(knex) {
       table.string('food_serving').notNullable();
       table.string('food_type').notNullable();
       table.string('activities').notNullable();
+      table.timestamp('date_created').defaultTo(knex.fn.now());  // Added date_created
+      table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));  // Added updated_at
     })
     .createTable('sitter_bridge', (table) => {
       table.integer('id').unsigned().primary();
@@ -112,6 +136,8 @@ exports.down = function(knex) {
     .dropTable('user_pet')
     .dropTable('sitter_bridge')
     .dropTable('pet')
+    .dropTable('sitter_pet_types')
+    .dropTable('pet_types')
     .dropTable('sitter')
     .dropTableIfExists('user')
     .dropTableIfExists('account');

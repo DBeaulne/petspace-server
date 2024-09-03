@@ -1,4 +1,3 @@
-/* PetSpace database pets seed file */
 /**
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> } 
@@ -18,7 +17,9 @@ exports.seed = async function(knex) {
       age: 3,
       food_serving: '2 cups',
       food_type: 'Dry food',
-      activities: 'Running, Fetch'
+      activities: 'Running, Fetch',
+      date_created: knex.fn.now(),
+      updated_at: knex.fn.now()
     },
     {
       id: knex.raw('(UUID())'),
@@ -29,7 +30,9 @@ exports.seed = async function(knex) {
       age: 5,
       food_serving: '1 cup',
       food_type: 'Wet food',
-      activities: 'Sleeping, Climbing'
+      activities: 'Sleeping, Climbing',
+      date_created: knex.fn.now(),
+      updated_at: knex.fn.now()
     }
   ]);
 };
