@@ -6,7 +6,7 @@ exports.seed = async function(knex) {
   // Deletes ALL existing entries
   await knex('pet').del();
   
-  // Inserts seed entries for pets
+  // Inserts seed entries for pets without the owner_id column
   await knex('pet').insert([
     // John Doe's pets
     {
@@ -18,8 +18,7 @@ exports.seed = async function(knex) {
       age: 4,
       food_serving: '3 cups',
       food_type: 'Dry food',
-      activities: 'Running, Playing Fetch',
-      owner_id: await knex('users').where('email', 'john.doe@example.com').select('id').first().then(row => row.id)
+      activities: 'Running, Playing Fetch'
     },
     {
       id: knex.raw('(UUID())'),
@@ -30,8 +29,7 @@ exports.seed = async function(knex) {
       age: 2,
       food_serving: '1 cup',
       food_type: 'Wet food',
-      activities: 'Climbing, Exploring',
-      owner_id: await knex('users').where('email', 'john.doe@example.com').select('id').first().then(row => row.id)
+      activities: 'Climbing, Exploring'
     },
     // Jane Smith's pets
     {
@@ -43,8 +41,7 @@ exports.seed = async function(knex) {
       age: 3,
       food_serving: '1 cup',
       food_type: 'Dry food',
-      activities: 'Sleeping, Climbing',
-      owner_id: await knex('users').where('email', 'jane.smith@example.com').select('id').first().then(row => row.id)
+      activities: 'Sleeping, Climbing'
     },
     {
       id: knex.raw('(UUID())'),
@@ -55,9 +52,7 @@ exports.seed = async function(knex) {
       age: 5,
       food_serving: '2 cups',
       food_type: 'Dry food',
-      activities: 'Running, Walking',
-      owner_id: await knex('users').where('email', 'jane.smith@example.com').select('id').first().then(row => row.id)
+      activities: 'Running, Walking'
     }
   ]);
 };
-
