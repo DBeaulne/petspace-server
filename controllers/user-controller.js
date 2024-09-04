@@ -53,5 +53,23 @@ const addUser = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  try {
+    // check to see if account exists
+    const userExists = await knex("users").where({id: req.params.id});
+    if(userExists.length === 0){
+      return res.status(400).json({
+        message: `User with ID ${req.params.id} not found`
+      });
+    }
+    await knex("users").where({id: req.params.id}).del();
+    res.sendStatus(204);
+  } catch (error) {
+    res.status(500).json({
+      message: `Unable to retrieve user data for user with ID ${req.params.id}`
+    })
+  }
+};
 
-module.exports = { users, addUser }
+
+module.exports = { users, addUser, deleteUser }

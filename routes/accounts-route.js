@@ -12,7 +12,8 @@ router.route("/").post(acctController.addAcct);
 // DELETE an account:
 /** deleting an account will delete the user
  * or sitter associated with the account.
- * If a user is deleted then
+ * If a user is deleted then associated pets
+ * should also be deleted
  */
 router.route("/:id").delete(acctController.deleteAcct);
 
