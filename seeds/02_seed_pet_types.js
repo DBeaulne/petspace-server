@@ -11,6 +11,12 @@ exports.seed = async function(knex) {
     { name: 'Dogs' },
     { name: 'Reptiles' },
     { name: 'Cats' },
-    { name: 'Large Dogs' }
+    { name: 'Large Dog' },
+    { name: 'Medium Dog' },
+    { name: 'Small Dog' },
+    { name: 'Outdoor Cat' },
+    { name: 'Indoor Cat' },
+    { name: 'Tarantula'},
+    { name: 'Bird'}
   ]);
 };

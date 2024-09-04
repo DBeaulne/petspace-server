@@ -14,24 +14,44 @@ const users = async (req, res) => {
 
 const addUser = async (req, res) => {
   try {
-    // check accounts to see if user email exists and return the id of that user
-    const acctUserCheck = await knex("accounts").where({email: req.params.email});
-    if(acctUserCheck.length === 0){
+    // Check if the account with the given email exists in the accounts table
+    const acctUserCheck = await knex("accounts").where({ email: req.body.email }).first();
+    if (!acctUserCheck) {
       return res.status(400).json({
-        message: `Account with email ${req.params.id} not found. Create account first`
+        message: `Account with email ${req.body.email} not found. Please create the account first.`
       });
     }
-    
-    // insert the new user data in the table
-    const result = await knex("users").insert(req.body);
-    const newUser = await knex("users").where({id: result[0] }).first();
-    
-    // confirm that a new user was created:
+
+    const userCheck = await knex("users").where({email: req.body.email}).first();
+    if(userCheck){
+      return res.status(400).json({
+        message: `A user with the email ${req.body.email} already exists. Please use a different email.`
+      });
+    }
+
+    // Insert the new user into the users table and retrieve the inserted ID
+    const newUserId = await knex("users").insert({
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      email: req.body.email,
+      address: req.body.address,
+      city: req.body.city,
+      province: req.body.province,
+      postal_code: req.body.postal_code,
+      latitude: req.body.latitude,
+      longitude: req.body.longitude,
+      account_id: acctUserCheck.id  // Ensure account_id is set correctly
+    }).returning('id'); // Use 'returning' to get the inserted ID
+
+    // Retrieve and return the newly created user
+    const newUser = await knex("users").where({ email: req.body.email }).first();
     res.status(201).json(newUser);
   } catch (error) {
-    // error message:
-    res.status(500).json({message: `Unable to add new user to the database: ${error.message}`})
+    res.status(500).json({
+      message: `Unable to add new user to the database: ${error.message}`
+    });
   }
 };
+
 
 module.exports = { users, addUser }
