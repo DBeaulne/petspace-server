@@ -3,11 +3,11 @@ const router = require("express").Router();
 // connect to controller:
 const userController = require("../controllers/user-controller");
 
-// GET list of users:
-router.route("/").get(userController.users);
 
-// POST a new user:
-router.route("/").post(userController.addUser);
+router.route("/")
+  .get(userController.users) // GET list of users:
+  .post(userController.addUser); // POST a new user:
+
 
 // DELETE a user:
 /** delete based on user :id, not account id.

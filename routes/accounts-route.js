@@ -3,11 +3,14 @@ const router = require("express").Router();
 // connect to controller:
 const acctController = require("../controllers/accounts-controller");
 
-// GET list of accounts:
-router.route("/").get(acctController.accts);
 
-// POST a new account:
-router.route("/").post(acctController.addAcct);
+router.route("/")
+  .get(acctController.accts) // GET list of accounts:
+  .post(acctController.addAcct); // POST a new account:
+
+
+  // GET acct by email:
+router.route("/:email").get(acctController.acctByEmail);
 
 // DELETE an account:
 /** deleting an account will delete the user

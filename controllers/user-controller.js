@@ -14,7 +14,7 @@ const users = async (req, res) => {
 
 const addUser = async (req, res) => {
   try {
-    // Check if the account with the given email exists in the accounts table
+    // Check if an account with the given email exists in the accounts table
     const acctUserCheck = await knex("accounts").where({ email: req.body.email }).first();
     if (!acctUserCheck) {
       return res.status(400).json({
