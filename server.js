@@ -3,14 +3,14 @@
 const express = require("express");
 const app = express();
 const bcrypt = require("bcrypt");
+const cookieParser = require("cookie-parser");
 const cors  = require('cors'); // enable cors
 const PORT = process.env.PORT || 8080; // PORT config
 require("dotenv").config();
 
-// enable express to read json responses:
-app.use(express.json());
-// use cors
-app.use(cors());
+app.use(express.json()); // enable express to read json responses:
+app.use(cors()); // use cors
+app.use(cookieParser());
 
 /* routes: */
 const accountRoutes = require("./routes/accounts-route");
