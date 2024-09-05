@@ -1,5 +1,5 @@
 const knex = require("knex")(require("../knexfile"));
-
+const bcrypt = require("bcrypt");
 
 // GET list of accounts
 const accts = async (req, res) => {
@@ -34,8 +34,7 @@ const acctByEmail = async (req, res) => {
 }
 
 const addAcct = async (req, res) => {
-  const { firstName, lastName, email, city, address, province, postalCode } = req.body;
-
+  const { firstName, lastName, email, city, address, province, postalCode, password } = req.body;
   try {
     // check if an account with matching email already exists
     const existingAcct = await knex("accounts").where({ email }).first();
@@ -47,13 +46,14 @@ const addAcct = async (req, res) => {
     }
 
     // if no account exists, create one in the accounts table
+     const hashedPassword = await bcrypt.hash(req.body.password, 10);
+     console.log(hashedPassword);
      const [accountId] = await knex("accounts").insert({
       email,
-      passwordHash: "hashedpassword1",
-      passwordSalt: "salt1"
+      passwordHash: hashedPassword,
+      passwordSalt: "salty72345$*@#1"
     });
     const newAcctData = await knex("accounts").where({email}).first();
-    console.log(newAcctData);
     
     await knex("users").insert({
       first_name: firstName,

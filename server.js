@@ -2,10 +2,9 @@
 // enable express
 const express = require("express");
 const app = express();
-// enable cors
-const cors  = require('cors');
-// PORT config
-const PORT = process.env.PORT || 8080;
+const bcrypt = require("bcrypt");
+const cors  = require('cors'); // enable cors
+const PORT = process.env.PORT || 8080; // PORT config
 require("dotenv").config();
 
 // enable express to read json responses:
@@ -18,10 +17,12 @@ const accountRoutes = require("./routes/accounts-route");
 const userRoutes = require("./routes/user-routes");
 const sitterRoutes = require("./routes/sitter-routes");
 const petRoutes = require("./routes/pet-routes");
+const loginRoute = require("./routes/login-route");
 app.use("/accounts", accountRoutes);
 app.use("/users", userRoutes);
 app.use("/sitters", sitterRoutes);
 app.use("/pets", petRoutes);
+app.use("/login", loginRoute);
 
 // Route for Google Maps API, not sure if I need this yet
 // const mapRoute = require("./routes/map-route");

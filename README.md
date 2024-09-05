@@ -45,4 +45,20 @@
 
 ### Routes
 
+- create routes for
+  - accounts: for account related actions
+  - user: for user related actions
+  - pet: for pet related actions
+  - sitter: for sitter related actions
+  - map: for google maps related actions
+  - login: for user login related actions
+
 ### Controllers
+
+- create controllers for
+  - account-controller: endpoints for accounts table functions
+  - user-controller: endpoins for user table functions
+  - sitter-controller: endpoints for sitter and sitter-bridge table functions
+  - pet-controller: endpoints for pet and pet-bridge table functions
+  - map-controller: endpoints for google maps functions
+  - login-controller: endpoints for user login functions
