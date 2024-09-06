@@ -1,6 +1,7 @@
 const knex = require("knex")(require("../knexfile"));
 const bcrypt = require("bcrypt");
 const generateAccessToken = require("../utils/generateAccessToken");
+const generateRefreshToken = require("../utils/generateRefreshToken");
 
 // POST log-in user
 const login = async (req, res) => {
@@ -18,8 +19,9 @@ const login = async (req, res) => {
     }
     
     if(await bcrypt.compare(userPassword, acctExists.passwordHash)){ // compare password to hashed password stored in db
-      const token = generateAccessToken({user: user});  // if compare passed, generate a token
-      return res.json({accessToken: token});            // return token to user
+      const aToken = generateAccessToken({user: user});  // if compare passed, generate an access token
+      const rToken = generateRefreshToken({user: user}); // generate a refresh token
+      return res.json({accessToken: aToken, refreshToken: rToken});            // return token to user
     } else {
       console.log("Password incorrect");      // if compare failed
       return res.status(403).json({           // return code and message that password is incorrect
