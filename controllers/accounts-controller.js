@@ -47,7 +47,6 @@ const addAcct = async (req, res) => {
 
     // if no account exists, create one in the accounts table
      const hashedPassword = await bcrypt.hash(req.body.password, 10);
-     console.log(hashedPassword);
      const [accountId] = await knex("accounts").insert({
       email,
       passwordHash: hashedPassword,

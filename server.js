@@ -19,12 +19,14 @@ const userRoutes = require("./routes/user-routes");
 const sitterRoutes = require("./routes/sitter-routes");
 const petRoutes = require("./routes/pet-routes");
 const loginRoute = require("./routes/login-route");
+const chatRoute = require("./routes/chat-route");
 const { default: OpenAI } = require("openai");
 app.use("/accounts", accountRoutes);
 app.use("/users", userRoutes);
 app.use("/sitters", sitterRoutes);
 app.use("/pets", petRoutes);
 app.use("/login", loginRoute);
+app.use("/chat", chatRoute);
 
 
 // Route for Google Maps API, not sure if I need this yet
