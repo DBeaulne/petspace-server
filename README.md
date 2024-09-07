@@ -62,3 +62,8 @@
   - pet-controller: endpoints for pet and pet-bridge table functions
   - map-controller: endpoints for google maps functions
   - login-controller: endpoints for user login functions
+
+### OpenAI
+
+- import openai package
+- add findSitters endpoint to search for sitters based on availabilty, then pet_types to sit, sorted by distance
