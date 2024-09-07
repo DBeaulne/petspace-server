@@ -19,24 +19,27 @@ const addSitter = async (req,res) => {
 };
 
 const findSitters = async (req, res) => {
-  const {petType, userLat, userLng} = req.body;
+  const { petType, userLat, userLng } = req.body;
 
   try {
-    const query = `
-      SELECT *, ( 3959 * acos( cos( radians(?) ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(?) ) + sin( radians(?) ) * sin( radians( lat ) ) ) ) AS distance 
-      FROM sitters 
-      WHERE FIND_IN_SET(?, pet_types) 
-      HAVING distance < max_distance
-      ORDER BY distance ASC;
-    `;
+    // Query sitters based on pet type, availability, and calculate distance
+    const sitters = await knex('sitters')
+      .join('sitter_pet_types', 'sitters.id', '=', 'sitter_pet_types.sitter_id')
+      .join('pet_types', 'sitter_pet_types.pet_type_id', '=', 'pet_types.id')
+      .select(
+        'sitters.*',
+        knex.raw(
+          '( 3959 * acos( cos( radians(?) ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(?) ) + sin( radians(?) ) * sin( radians( lat ) ) ) ) AS distance',
+          [userLat, userLng, userLat]
+        )
+      )
+      .where('availability', true)
+      .andWhere('pet_types.name', petType)
+      .orderBy('distance', 'asc');
 
-    db.query(query, [userLat, userLng, userLat, petType], (err, results) => {
-      if (err) {
-        return res.status(500).json({ error: err.message });
-      }
-    res.json(results);
-    });
+    res.json(sitters);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: error.message });
   }
 };

@@ -17,8 +17,8 @@ exports.seed = async function(knex) {
       city: 'Whitby',
       province: 'ON',
       postal_code: 'L1M 0K2',
-      latitude: 43.96136088294837,
-      longitude: -78.95434641985815,
+      lat: 43.96136088294837,
+      lng: -78.95434641985815,
       account_id: await knex('accounts').where('email', 'john.doe@example.com').select('id').first().then(row => row.id)
     },
     {
@@ -30,8 +30,8 @@ exports.seed = async function(knex) {
       city: 'Whitby',
       province: 'ON',
       postal_code: 'L1N 6E8',
-      latitude: 43.89210742117633,
-      longitude: -78.94130625712823,
+      lat: 43.89210742117633,
+      lng: -78.94130625712823,
       account_id: await knex('accounts').where('email', 'jane.smith@example.com').select('id').first().then(row => row.id)
     }
   ]);

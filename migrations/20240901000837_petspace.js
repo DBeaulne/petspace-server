@@ -25,8 +25,8 @@ exports.up = function(knex) {
       table.string('city').notNullable();
       table.string('province').notNullable();
       table.string('postal_code').notNullable();
-      table.decimal('latitude', 10, 8).nullable();
-      table.decimal('longitude', 11, 8).nullable();
+      table.decimal('lat', 10, 8).nullable();
+      table.decimal('lng', 11, 8).nullable();
       table.timestamp('date_created').defaultTo(knex.fn.now());  // Added date_created
       table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));  // Added updated_at
       table.uuid('account_id').notNullable();
@@ -46,8 +46,8 @@ exports.up = function(knex) {
       table.string('city').notNullable();
       table.string('province').notNullable();
       table.string('postal_code').notNullable();
-      table.decimal('latitude', 10, 8).nullable();
-      table.decimal('longitude', 11, 8).nullable();
+      table.decimal('lat', 10, 8).nullable();
+      table.decimal('lng', 11, 8).nullable();
       table.boolean('availability').notNullable();
       table.timestamp('date_created').defaultTo(knex.fn.now());  // Added date_created
       table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));  // Added updated_at
