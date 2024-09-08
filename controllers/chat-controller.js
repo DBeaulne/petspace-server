@@ -2,12 +2,14 @@ const openai = require('openai');
 require('dotenv').config();
 
 const openaiClient = new openai.OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,  // Ensure this is correctly set in your .env file
+  apiKey: process.env.OPENAI_KEY,  // Ensure this is correctly set in your .env file
 });
 
 const chatCompletion = async (req, res) => {
   const { message } = req.body;
 
+  console.log('hello from chatCompletion api endpoint');
+  
   try {
     const response = await openaiClient.chat.completions.create({
       model: "gpt-4o-mini",
