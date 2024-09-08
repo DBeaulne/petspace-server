@@ -1,4 +1,4 @@
-# Petspace Server
+# Petspace Server project
 
 - install necessary packages
 
@@ -11,6 +11,14 @@
   - uuid
 
 - created folder structure and added placeholder files for github to keep the structure intact
+
+## Setup
+
+1.  `https://github.com/DBeaulne/petspace-server.git`
+2.  `cd petspace-server`
+3.  `npm install`
+
+- npm init
 
 ## Develop Branch
 
@@ -67,3 +75,4 @@
 
 - import openai package
 - add findSitters endpoint to search for sitters based on availabilty, then pet_types to sit, sorted by distance
+- the OpenAI chat functionality is still a work in progress
