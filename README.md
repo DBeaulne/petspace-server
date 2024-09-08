@@ -1,17 +1,5 @@
 # Petspace Server project
 
-- install necessary packages
-
-  - express
-  - nodemon
-  - cors
-  - dotenv
-  - knex
-  - mysql2
-  - uuid
-
-- created folder structure and added placeholder files for github to keep the structure intact
-
 ## Setup
 
 1.  `$ git clone git@github.com:DBeaulne/petspace-server.git`
