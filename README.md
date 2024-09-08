@@ -14,9 +14,11 @@
 
 ## Setup
 
-1.  `https://github.com/DBeaulne/petspace-server.git`
+1.  `git clone git@github.com:DBeaulne/petspace-server.git`
 2.  `cd petspace-server`
 3.  `npm install`
+4.  create .env file using the .env.sample file
+5.  `node -e "console.log(require('crypto').randomBytes(32).toString('hex'));"` to create an access token. Copy this into your .env file for the
 
 - npm init
 
