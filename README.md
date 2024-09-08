@@ -6,7 +6,7 @@
 2.  `$ cd petspace-server`
 3.  `$ npm install`
 4.  Open your mySQL editor and create a new schema in your connected server. Give it the name of petspace (all lower case)
-5.  create .env file using the .env.sample file and add the required conditions.
+5.  create .env file using the .env.sample file as your template and add the required conditions as described in comments.
 6.  `$ node -e "console.log(require('crypto').randomBytes(32).toString('hex'));"` to create an access token. Copy this into your .env file for the ACCESS_TOKEN_SECRET.
 
     - run the above command a second time for your REFRESH_TOKEN_SECRET
