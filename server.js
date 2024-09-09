@@ -19,24 +19,15 @@ const userRoutes = require("./routes/user-routes");
 const sitterRoutes = require("./routes/sitter-routes");
 const petRoutes = require("./routes/pet-routes");
 const loginRoute = require("./routes/login-route");
-// const chatRoute = require("./routes/chat-route");
-// const { default: OpenAI } = require("openai");
+
 app.use("/accounts", accountRoutes);
 app.use("/users", userRoutes);
 app.use("/sitters", sitterRoutes);
 app.use("/pets", petRoutes);
 app.use("/login", loginRoute);
-// app.use("/chat", chatRoute);
 
-
-// Route for Google Maps API, not sure if I need this yet
-// const mapRoute = require("./routes/map-route");
-// app.use("/map", mapRoute);
 
 app.listen(PORT, () => {
-  console.log('fetching gerbils...');
-  console.log('spooling up hamsters....');
-  console.log("It's working!! It's working!!!!");  
   console.log(`running at http://localhost:${PORT}`);  
 });
 
