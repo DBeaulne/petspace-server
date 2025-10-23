@@ -34,7 +34,7 @@ const acctByEmail = async (req, res) => {
 }
 
 const addAcct = async (req, res) => {
-  const { firstName, lastName, email, city, address, province, postalCode, password } = req.body;
+  const { firstName, lastName, email, city, address, province, postalCode, password, lat, lng } = req.body;
   try {
     // check if an account with matching email already exists
     const existingAcct = await knex("accounts").where({ email }).first();
@@ -46,7 +46,7 @@ const addAcct = async (req, res) => {
     }
 
     // if no account exists, create one in the accounts table
-     const hashedPassword = await bcrypt.hash(req.body.password, 10);
+     const hashedPassword = await bcrypt.hash(password, 10);
      const [accountId] = await knex("accounts").insert({
       email,
       passwordHash: hashedPassword,
@@ -93,5 +93,7 @@ const deleteAcct = async (req, res) => {
     })
   }
 };
+
+
 
 module.exports = { accts, acctByEmail, addAcct, deleteAcct }

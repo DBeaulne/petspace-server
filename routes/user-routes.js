@@ -5,8 +5,9 @@ const userController = require("../controllers/user-controller");
 
 
 router.route("/")
-  .get(userController.users) // GET list of users:
-  .post(userController.addUser); // POST a new user:
+  .get(userController.users)        // GET list of users:
+  .post(userController.addUser)     // POST a new user:
+  .put(userController.addGeoCode);  // PUT to add lat & lng to user that was just added
 
 
 // DELETE a user:

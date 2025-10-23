@@ -12,6 +12,7 @@ const users = async (req, res) => {
   }
 };
 
+// POST a new user
 const addUser = async (req, res) => {
   try {
     // Check if an account with the given email exists in the accounts table
@@ -38,10 +39,10 @@ const addUser = async (req, res) => {
       city: req.body.city,
       province: req.body.province,
       postal_code: req.body.postal_code,
-      latitude: req.body.latitude,
-      longitude: req.body.longitude,
+      lat: req.body.lat,
+      lng: req.body.lng,
       account_id: acctUserCheck.id  // Ensure account_id is set correctly
-    }).returning('id'); // Use 'returning' to get the inserted ID
+    });
 
     // Retrieve and return the newly created user
     const newUser = await knex("users").where({ email: req.body.email }).first();
@@ -67,9 +68,41 @@ const deleteUser = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       message: `Unable to retrieve user data for user with ID ${req.params.id}`
-    })
+    });
   }
 };
 
+const addGeoCode = async (req, res) => {
+  try {
+    // check to see if account exists
+    const userExists = await knex("users").where({email: req.body.email});
+    if(userExists.length === 0){
+      return res.status(400).json({
+        message: `User with email ${req.body.email} not found`
+      });
+    };
+    if(!req.body.lat){
+      return res.status(400).json({
+        message: `Missing latitude information`
+      })
+    }
+    if(!req.body.lng){
+    return res.status(400).json({
+        message: `Missing longitude information`
+      });
+    }
+    const result = await knex("users").where({email: req.body.email}).update(
+      {
+        lat: req.body.lat,
+        lng: req.body.lng
+      });
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json({
+      message: `Unable to edit data for user with ID ${req.params.id}`
+    });
+  }
+}
 
-module.exports = { users, addUser, deleteUser }
+
+module.exports = { users, addUser, deleteUser, addGeoCode }
