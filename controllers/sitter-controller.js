@@ -18,6 +18,70 @@ const addSitter = async (req,res) => {
   })
 };
 
+const addSitterApplication = async (req, res) => {
+    const {
+        firstName,
+        lastName,
+        email,
+        phone = null,
+        city,
+        province = "ON",
+        postalCode,
+        lat = null,
+        lng = null,
+        hourlyRate,
+        serviceRadiusKm = 35,
+        bio,
+        acceptedPetTypes,
+        acceptedPetSizes
+    } = req.body;
+
+    if (!firstName || !lastName || !email || !city || !postalCode || !hourlyRate || !bio) {
+        return res.status(400).json({ message: "Missing required sitter application fields" });
+    }
+
+    if (!Array.isArray(acceptedPetTypes) || acceptedPetTypes.length === 0) {
+        return res.status(400).json({ message: "At least one accepted pet type is required" });
+    }
+
+    if (!Array.isArray(acceptedPetSizes) || acceptedPetSizes.length === 0) {
+        return res.status(400).json({ message: "At least one accepted pet size is required" });
+    }
+
+    try {
+        const existingPending = await knex("sitter_applications")
+            .where({ email })
+            .whereIn("status", ["pending", "approved"])
+            .first();
+
+        if (existingPending) {
+            return res.status(400).json({ message: "A sitter application already exists for this email" });
+        }
+
+        await knex("sitter_applications").insert({
+            first_name: firstName,
+            last_name: lastName,
+            email,
+            phone,
+            city,
+            province,
+            postal_code: postalCode,
+            lat,
+            lng,
+            hourly_rate: hourlyRate,
+            service_radius_km: serviceRadiusKm,
+            bio,
+            accepted_pet_types: acceptedPetTypes.join(","),
+            accepted_pet_sizes: acceptedPetSizes.join(","),
+            status: "pending"
+        });
+
+        return res.status(201).json({ message: "Sitter application submitted for review" });
+    } catch (error) {
+        return res.status(500).json({ message: `Unable to submit sitter application: ${error.message}` });
+    }
+};
+
 // Helper function to calculate distance
 function calculateDistance(lat1, lon1, lat2, lon2) {
     const R = 6371; // Radius of the Earth in km
@@ -96,4 +160,4 @@ const findSitters = async (req, res) => {
 };
 
 
-module.exports = { sitters, addSitter, findSitters }
+module.exports = { sitters, addSitter, addSitterApplication, findSitters }

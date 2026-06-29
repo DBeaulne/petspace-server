@@ -24,6 +24,7 @@ const addPet = async (req,res) => {
       food_serving: foodServing,
       food_type: petFood,
       activities: petActivities,
+      owner_account_id: req.user.accountId
     }).then(() => {
       res.status(201).json({
         message: "Pet added to database",

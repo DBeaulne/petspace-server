@@ -5,10 +5,14 @@
 	"main": "server.js",
 	"scripts": {
 		"start": "nodemon server.js",
+		"start:node": "node server.js",
 		"migrate": "knex migrate:latest",
 		"migrate:down": "knex migrate:down",
 		"migrate:rollback": "knex migrate:rollback",
-		"seed": "knex seed:run"
+		"seed": "knex seed:run",
+		"test": "node scripts/smoke-test.js",
+		"test:env": "node scripts/check-env.js",
+		"test:smoke": "node scripts/smoke-test.js"
 	},
 	"repository": {
 		"type": "git",

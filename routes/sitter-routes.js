@@ -9,6 +9,9 @@ router.route("/").get(sitterController.sitters);
 // POST a new sitter:
 router.route("/").post(sitterController.addSitter);
 
+// POST a sitter application:
+router.route("/applications").post(sitterController.addSitterApplication);
+
 // POST request to find siters:
 router.route('/search').post(sitterController.findSitters);
 
